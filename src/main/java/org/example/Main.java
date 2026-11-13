@@ -6,6 +6,7 @@ public class Main extends javax.swing.JDialog {
     /** Creates new form GUIMain */
     public Main(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setTitle("Calendar");
         initComponents();
         setupLayout();
     }
@@ -169,7 +170,6 @@ public class Main extends javax.swing.JDialog {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
