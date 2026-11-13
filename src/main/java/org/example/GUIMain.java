@@ -4,9 +4,7 @@ public class GUIMain extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIMain.class.getName());
 
-    /**
-     * Creates new form GUIMain
-     */
+   
     public GUIMain(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
