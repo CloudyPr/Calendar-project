@@ -11,4 +11,4 @@
 
 ---
 
-<img src="update GUI.png" width="100%">
+<img src="update GUI 2.png" width="100%">
