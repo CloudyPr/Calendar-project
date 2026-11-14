@@ -9,6 +9,6 @@
 - Nadine Fissilmi Kaffa
 - Gilland Ghazali Hartono
 
----
+-----
 
 <img src="update GUI 2.png" width="100%">
