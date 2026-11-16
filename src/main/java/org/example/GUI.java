@@ -18,6 +18,14 @@ public class GUI extends javax.swing.JDialog {
     public GUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        comboYear.removeAllItems();
+        for (int year = 1900; year <= 2100; year++) {
+             comboYear.addItem(String.valueOf(year));
+         }
+         java.util.Calendar today = java.util.Calendar.getInstance();
+         comboMonth.setSelectedIndex(today.get(java.util.Calendar.MONTH));
+         comboYear.setSelectedItem(String.valueOf(today.get(java.util.Calendar.YEAR)));
+         
     }
 
     /**
@@ -29,7 +37,7 @@ public class GUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panepTop = new javax.swing.JPanel();
+        panelTop = new javax.swing.JPanel();
         comboMonth = new javax.swing.JComboBox<>();
         comboYear = new javax.swing.JComboBox<>();
         labelSeason = new javax.swing.JLabel();
@@ -38,35 +46,35 @@ public class GUI extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panepTop.setBackground(new java.awt.Color(170, 205, 205));
-        panepTop.setPreferredSize(new java.awt.Dimension(600, 90));
+        panelTop.setBackground(new java.awt.Color(170, 205, 205));
+        panelTop.setPreferredSize(new java.awt.Dimension(600, 90));
 
-        comboMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aus", "Sep", "Oct", "Nov", "Dec" }));
+        comboMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }));
         comboMonth.addActionListener(this::comboMonthActionPerformed);
 
         comboYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         labelSeason.setText("Season : Spring");
 
-        javax.swing.GroupLayout panepTopLayout = new javax.swing.GroupLayout(panepTop);
-        panepTop.setLayout(panepTopLayout);
-        panepTopLayout.setHorizontalGroup(
-            panepTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panepTopLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelTopLayout = new javax.swing.GroupLayout(panelTop);
+        panelTop.setLayout(panelTopLayout);
+        panelTopLayout.setHorizontalGroup(
+            panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTopLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(panepTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSeason)
-                    .addGroup(panepTopLayout.createSequentialGroup()
+                    .addGroup(panelTopLayout.createSequentialGroup()
                         .addComponent(comboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(207, Short.MAX_VALUE))
         );
-        panepTopLayout.setVerticalGroup(
-            panepTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panepTopLayout.createSequentialGroup()
+        panelTopLayout.setVerticalGroup(
+            panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTopLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panepTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -74,7 +82,7 @@ public class GUI extends javax.swing.JDialog {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panepTop, java.awt.BorderLayout.NORTH);
+        getContentPane().add(panelTop, java.awt.BorderLayout.NORTH);
 
         tableCalendar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,7 +165,7 @@ public class GUI extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> comboMonth;
     private javax.swing.JComboBox<String> comboYear;
     private javax.swing.JLabel labelSeason;
-    private javax.swing.JPanel panepTop;
+    private javax.swing.JPanel panelTop;
     private javax.swing.JScrollPane scrollPaneCalendar;
     private javax.swing.JTable tableCalendar;
     // End of variables declaration//GEN-END:variables
