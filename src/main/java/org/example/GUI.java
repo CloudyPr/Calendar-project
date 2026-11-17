@@ -18,6 +18,9 @@ public class GUI extends javax.swing.JDialog {
     public GUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        comboMonth.setMaximumRowCount(12);
+        comboYear.setMaximumRowCount(12);
         comboYear.removeAllItems();
         for (int year = 1900; year <= 2100; year++) {
              comboYear.addItem(String.valueOf(year));
