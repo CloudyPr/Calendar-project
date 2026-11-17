@@ -18,10 +18,18 @@ public class GUI extends javax.swing.JDialog {
     public GUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
-        comboMonth.setMaximumRowCount(12);
+        setLocationRelativeTo(null);//biar pas di run,tampilannyo otomatis muncul ditengah
+        comboMonth.setMaximumRowCount(12);//biar scrollbar di bulan ngilang,nampilken bulannyo 12 ikok bukan 8
         comboYear.setMaximumRowCount(12);
         comboYear.removeAllItems();
+
+        javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
+        tableCalendar.getTableHeader().setDefaultRenderer(centerRenderer);//ngebuat tulisan hari, jadi ditengah tiap kotaknyo
+        
+        tableCalendar.setShowGrid(true);
+        tableCalendar.setGridColor(new java.awt.Color(200, 200, 200));//warno grid tanggal
+        
         for (int year = 1900; year <= 2100; year++) {
              comboYear.addItem(String.valueOf(year));
          }
