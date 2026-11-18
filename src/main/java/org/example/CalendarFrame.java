@@ -15,6 +15,8 @@ public class CalendarFrame extends javax.swing.JFrame {
     /**
      * Creates new form CalendarFrame
      */
+    
+    //Constructor codenyo disini ges
     public CalendarFrame() {
         initComponents();
         setLocationRelativeTo(null);//biar pas di run,tampilannyo otomatis muncul ditengah
@@ -35,7 +37,7 @@ public class CalendarFrame extends javax.swing.JFrame {
          java.util.Calendar today = java.util.Calendar.getInstance();
          comboMonth.setSelectedIndex(today.get(java.util.Calendar.MONTH));
          comboYear.setSelectedItem(String.valueOf(today.get(java.util.Calendar.YEAR)));
-         
+         updateCalendar();
     }
 
     /**
@@ -63,6 +65,7 @@ public class CalendarFrame extends javax.swing.JFrame {
         comboMonth.addActionListener(this::comboMonthActionPerformed);
 
         comboYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboYear.addActionListener(this::comboYearActionPerformed);
 
         labelSeason.setText("Season : Spring");
 
@@ -130,10 +133,43 @@ public class CalendarFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //ini combobox buat bulan
     private void comboMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMonthActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboMonthActionPerformed
 
+    private void comboYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboYearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboYearActionPerformed
+
+    private void updateCalendar() {
+    int month = comboMonth.getSelectedIndex();
+    String yearText = (String) comboYear.getSelectedItem();
+    if (yearText == null) {
+        return;
+    }
+    int year = Integer.parseInt(yearText);
+
+    javax.swing.table.DefaultTableModel model =
+            (javax.swing.table.DefaultTableModel) tableCalendar.getModel();
+    for (int r = 0; r < model.getRowCount(); r++) {
+        for (int c = 0; c < model.getColumnCount(); c++) {
+            model.setValueAt(null, r, c);
+        }
+    }
+
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    cal.set(year, month, 1);
+    int startColumn = cal.get(java.util.Calendar.DAY_OF_WEEK) - 1; // 0 = Sunday
+    int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+
+    for (int day = 1; day <= daysInMonth; day++) {
+        int position = startColumn + day - 1;
+        int row = position / 7;
+        int col = position % 7;
+        model.setValueAt(String.valueOf(day), row, col);
+    }
+}
     /**
      * @param args the command line arguments
      */
