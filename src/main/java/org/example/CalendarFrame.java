@@ -44,6 +44,7 @@ public class CalendarFrame extends javax.swing.JFrame {
         tableCalendar.setShowGrid(true);
         tableCalendar.setGridColor(new java.awt.Color(200, 200, 200));//warno grid tanggal
         
+        //buat ngisi combo box year supayo dak manual masukin 200 tahun (quality of life)
         for (int year = 1900; year <= 2100; year++) {
              comboYear.addItem(String.valueOf(year));
          }
@@ -64,6 +65,7 @@ public class CalendarFrame extends javax.swing.JFrame {
              }
          });
         
+         //biar calender sesuai dengen bulan dan tahun sekarang
          updateCalendar();
 
          tableCalendar.setCellSelectionEnabled(true);
@@ -105,6 +107,9 @@ public class CalendarFrame extends javax.swing.JFrame {
         comboYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboYear.addActionListener(this::comboYearActionPerformed);
 
+        labelSeason.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        labelSeason.setForeground(new java.awt.Color(0, 0, 0));
+        labelSeason.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelSeason.setText("Season : Spring");
 
         javax.swing.GroupLayout panelTopLayout = new javax.swing.GroupLayout(panelTop);
@@ -112,14 +117,14 @@ public class CalendarFrame extends javax.swing.JFrame {
         panelTopLayout.setHorizontalGroup(
             panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTopLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(31, 31, 31)
                 .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSeason)
                     .addGroup(panelTopLayout.createSequentialGroup()
                         .addComponent(comboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
         panelTopLayout.setVerticalGroup(
             panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,9 +133,9 @@ public class CalendarFrame extends javax.swing.JFrame {
                 .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(labelSeason)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelSeason, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelTop, java.awt.BorderLayout.NORTH);
