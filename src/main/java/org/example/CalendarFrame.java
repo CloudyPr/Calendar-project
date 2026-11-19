@@ -28,6 +28,11 @@ public class CalendarFrame extends javax.swing.JFrame {
         comboYear.setMaximumRowCount(12);
         comboYear.removeAllItems();
 
+        //ngubah ukuran samo fontnyo season
+        labelSeason.setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 16));
+        //ngubah warno tulisa seasonnyo
+        labelSeason.setForeground(new java.awt.Color(255, 255, 255));    
+
         javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
         tableCalendar.getTableHeader().setDefaultRenderer(centerRenderer);//ngebuat tulisan hari, jadi ditengah tiap kotaknyo
@@ -232,6 +237,32 @@ public class CalendarFrame extends javax.swing.JFrame {
 
     String season = getSeason(year, month + 1, selectedDay);
     labelSeason.setText("Season : " + season );
+
+    java.awt.Color bgColor;
+    java.awt.Color textColor;
+
+    //ngubah warno di tulisan season samo ngubah backgroundnyo
+    switch (season) {
+        case "Spring":
+            bgColor = new java.awt.Color(166, 188, 201);   
+            textColor = new java.awt.Color(255, 244, 235);
+            break;
+        case "Summer":
+            bgColor = new java.awt.Color(200, 184, 147);   
+            textColor = new java.awt.Color(61, 21, 52);
+            break;
+        case "Autumn":
+            bgColor = new java.awt.Color(111, 77, 56); 
+            textColor = new java.awt.Color(246, 224, 182);
+            break;
+        case "Winter":
+        default:
+            bgColor = new java.awt.Color(62, 75, 142);   
+            textColor = new java.awt.Color(166, 188, 201);
+            break;
+        }
+        panelTop.setBackground(bgColor);
+        labelSeason.setForeground(textColor);
     }
 
     private int getSelectedDayOrDefault(int year, int month1Based) {
