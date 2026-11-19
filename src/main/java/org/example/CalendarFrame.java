@@ -31,7 +31,11 @@ public class CalendarFrame extends javax.swing.JFrame {
         javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
         tableCalendar.getTableHeader().setDefaultRenderer(centerRenderer);//ngebuat tulisan hari, jadi ditengah tiap kotaknyo
-        
+
+        //warno header namo hari
+        centerRenderer.setBackground(new java.awt.Color(170, 205, 205));
+        centerRenderer.setForeground(new java.awt.Color(30, 70, 70));
+
         tableCalendar.setShowGrid(true);
         tableCalendar.setGridColor(new java.awt.Color(200, 200, 200));//warno grid tanggal
         
