@@ -41,6 +41,20 @@ public class CalendarFrame extends javax.swing.JFrame {
          java.util.Calendar today = java.util.Calendar.getInstance();
          comboMonth.setSelectedIndex(today.get(java.util.Calendar.MONTH));
          comboYear.setSelectedItem(String.valueOf(today.get(java.util.Calendar.YEAR)));
+        
+        //biar kalender lebih cantik
+         tableCalendar.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+             @Override
+             public java.awt.Component getTableCellRendererComponent(javax.swing.JTable t, Object v, boolean sel, boolean foc, int r, int c) {
+                 super.getTableCellRendererComponent(t, v, sel, false, r, c);
+                 setHorizontalAlignment(CENTER);
+                 setFont(getFont().deriveFont(18f));
+                 setBackground(v == null ? new java.awt.Color(245, 245, 245) : sel ? new java.awt.Color(190, 220, 245) : java.awt.Color.WHITE);
+                 setForeground(c == 0 ? java.awt.Color.RED : java.awt.Color.DARK_GRAY);
+                 return this;
+             }
+         });
+        
          updateCalendar();
 
          tableCalendar.setCellSelectionEnabled(true);
