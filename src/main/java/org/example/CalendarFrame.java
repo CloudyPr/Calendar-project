@@ -12,6 +12,10 @@ public class CalendarFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CalendarFrame.class.getName());
 
+    // buat nyimpen bulan & tahun yang lagi ditampilkan, dipake renderer buat nentuin "hari ini"
+    private int displayedMonth = 1;
+    private int displayedYear = 2000;
+
     /**
      * Creates new form CalendarFrame
      */
