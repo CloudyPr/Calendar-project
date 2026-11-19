@@ -42,6 +42,17 @@ public class CalendarFrame extends javax.swing.JFrame {
          comboMonth.setSelectedIndex(today.get(java.util.Calendar.MONTH));
          comboYear.setSelectedItem(String.valueOf(today.get(java.util.Calendar.YEAR)));
          updateCalendar();
+
+         tableCalendar.setCellSelectionEnabled(true);
+         tableCalendar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+         //biar pacak diklik tanggalnyo
+         tableCalendar.addMouseListener(new java.awt.event.MouseAdapter() {
+         @Override
+         public void mouseClicked(java.awt.event.MouseEvent evt) {
+         refreshSeasonLabel();
+             }
+         });
     }
 
     /**
@@ -190,7 +201,65 @@ public class CalendarFrame extends javax.swing.JFrame {
             // Masukkin angka ke JTable sesuai baris dan kolom sebelumnya
             model.setValueAt(day, row, col);
         }
+        refreshSeasonLabel();
     }
+
+    private void refreshSeasonLabel() {
+    int month = comboMonth.getSelectedIndex();
+    String yearText = (String) comboYear.getSelectedItem();
+    if (month < 0 || yearText == null) return;
+
+    int year = Integer.parseInt(yearText);
+    int selectedDay = getSelectedDayOrDefault(year, month + 1);
+
+    String season = getSeason(year, month + 1, selectedDay);
+    labelSeason.setText("Season : " + season );
+    }
+
+    private int getSelectedDayOrDefault(int year, int month1Based) {
+        int row = tableCalendar.getSelectedRow();
+        int col = tableCalendar.getSelectedColumn();
+
+        if (row >= 0 && col >= 0) {
+        Object val = tableCalendar.getValueAt(row, col);
+            if (val != null) {
+            return Integer.parseInt(val.toString());
+            }
+        }
+
+        //kalo katek tanggal yg diklik,otomatis jadi tanggal hari ini
+        java.time.LocalDate today = java.time.LocalDate.now();
+        if (today.getYear() == year && today.getMonthValue() == month1Based) {
+            return today.getDayOfMonth();
+        }
+        return 1;
+    }
+
+    //nentuken seasonnyo
+    private String getSeason(int year, int month, int day) {
+    java.time.LocalDate date = java.time.LocalDate.of(year, month, day);
+    java.time.Month m = date.getMonth();
+
+    // Pembagian musim astronomis (Northern Hemisphere)
+    if ((m == java.time.Month.MARCH && day >= 20)
+            || m == java.time.Month.APRIL
+            || m == java.time.Month.MAY
+            || (m == java.time.Month.JUNE && day < 21)) {
+        return "Spring";
+    } else if ((m == java.time.Month.JUNE && day >= 21)
+            || m == java.time.Month.JULY
+            || m == java.time.Month.AUGUST
+            || (m == java.time.Month.SEPTEMBER && day < 22)) {
+        return "Summer";
+    } else if ((m == java.time.Month.SEPTEMBER && day >= 22)
+            || m == java.time.Month.OCTOBER
+            || m == java.time.Month.NOVEMBER
+            || (m == java.time.Month.DECEMBER && day < 21)) {
+        return "Autumn";
+    } else {
+        return "Winter";
+    }
+}
     /**
      * @param args the command line arguments
      */
