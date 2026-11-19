@@ -134,42 +134,59 @@ public class CalendarFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //ini combobox buat bulan
+    // Event handler bulan
     private void comboMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMonthActionPerformed
         // TODO add your handling code here:
+        updateCalendar(); // Untuk memanggil method updateCalendar/Pergantian bulan
     }//GEN-LAST:event_comboMonthActionPerformed
 
+    // Event handler tahun
     private void comboYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboYearActionPerformed
         // TODO add your handling code here:
+        updateCalendar(); // Untuk memanggil method updateCalendar/Pergantian tahun
     }//GEN-LAST:event_comboYearActionPerformed
 
     private void updateCalendar() {
-    int month = comboMonth.getSelectedIndex();
-    String yearText = (String) comboYear.getSelectedItem();
-    if (yearText == null) {
-        return;
-    }
-    int year = Integer.parseInt(yearText);
+        int month = comboMonth.getSelectedIndex(); // Ambil indeks bulan dari comboMonth
 
-    javax.swing.table.DefaultTableModel model =
-            (javax.swing.table.DefaultTableModel) tableCalendar.getModel();
-    for (int r = 0; r < model.getRowCount(); r++) {
-        for (int c = 0; c < model.getColumnCount(); c++) {
-            model.setValueAt(null, r, c);
+        String yearText = (String) comboYear.getSelectedItem(); // Ambil tahun dari comboYear, karena getSelectedItem(), jadi harus dirubah jadi String
+        
+        // Validasi, kalau bulan atau tahun kosong, maka proses berhenti. Sebenernya gak dipake disini
+        if (month < 0 || yearText == null) return;
+
+        int year = Integer.parseInt(yearText); // Sebelumnya kan String, kita ubah jadi int, sama seperti month yang sudah int
+
+        java.time.YearMonth yearMonth = java.time.YearMonth.of(year, month + 1); // Membuat objek YearMonth untuk tahun dan bulan
+
+        java.time.LocalDate firstDay = yearMonth.atDay(1); // Ambil hari pertama dari bulan yang dipilih
+        
+        // yearMonth(2026, 7) --> atDay(1) --> firstDay(2026, 7, 1) --> otomatis Rabu
+        
+        int daysInMonth = yearMonth.lengthOfMonth(); // Ambil jumlah hari di suatu bulan, kabisat otomatis
+        
+        int startColumn = firstDay.getDayOfWeek().getValue() % 7; // ngubah nomor hari jadi indeks kolom kalender dimulai 0 dari minggu
+        
+        // firstDay(2026, 7, 1) --> getDayOfWeek() --> WEDNESDAY --> getValue() --> 3 --> %7 untuk mengatasi hari Minggu
+        
+        // Pengatur isi JTable, biar bisa ngubah isi table
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tableCalendar.getModel();
+
+        for (int row = 0; row < 6; row++) { // Mengosongkan seluruh kalender setiap ganti bulan/tahun
+            for (int col = 0; col < 7; col++) {
+                model.setValueAt(null, row, col);
+            }
+        }
+
+        for (int day = 1; day <= daysInMonth; day++) { // Memasukkan tanggal ke kalender, mulai dari satu, dibatasi daysInMonth
+            // Menentukan posisi kolom, untuk baris dan kolom
+            int position = startColumn + day - 1; // Dijadikan 0 agar menyamakan posisi awal firstDay
+            // Penentuan baris dan kolom (6x7)
+            int row = position / 7;
+            int col = position % 7;
+            // Masukkin angka ke JTable sesuai baris dan kolom sebelumnya
+            model.setValueAt(day, row, col);
         }
     }
-
-    java.util.Calendar cal = java.util.Calendar.getInstance();
-    cal.set(year, month, 1);
-    int startColumn = cal.get(java.util.Calendar.DAY_OF_WEEK) - 1; // 0 = Sunday
-    int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-
-    for (int day = 1; day <= daysInMonth; day++) {
-        int position = startColumn + day - 1;
-        int row = position / 7;
-        int col = position % 7;
-        model.setValueAt(String.valueOf(day), row, col);
-    }
-}
     /**
      * @param args the command line arguments
      */
