@@ -58,7 +58,7 @@ public class CalendarFrame extends javax.swing.JFrame {
              public java.awt.Component getTableCellRendererComponent(javax.swing.JTable t, Object v, boolean sel, boolean foc, int r, int c) {
                  super.getTableCellRendererComponent(t, v, sel, false, r, c);
                  setHorizontalAlignment(CENTER);
-                 setFont(getFont().deriveFont(18f));
+                 setFont(getFont().deriveFont(16f));
                  setBackground(v == null ? new java.awt.Color(245, 245, 245) : sel ? new java.awt.Color(190, 220, 245) : java.awt.Color.WHITE);
                  setForeground(c == 0 ? java.awt.Color.RED : java.awt.Color.DARK_GRAY);
                  return this;
