@@ -15,6 +15,7 @@ public class CalendarFrame extends javax.swing.JFrame {
     // buat nyimpen bulan & tahun yang lagi ditampilkan, dipake renderer buat nentuin "hari ini"
     private int displayedMonth = 1;
     private int displayedYear = 2000;
+    private int preferredDay = 1;
 
     /**
      * Creates new form CalendarFrame
@@ -214,6 +215,18 @@ public class CalendarFrame extends javax.swing.JFrame {
         // Pengatur isi JTable, biar bisa ngubah isi table
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tableCalendar.getModel();
 
+        // Menyimpan tanggal yang sebelumnya dipilih
+        int oldRow=tableCalendar.getSelectedRow();
+        int oldCol=tableCalendar.getSelectedColumn();
+
+        if (oldRow >= 0 && oldCol >= 0) {
+            Object value=tableCalendar.getValueAt(oldRow, oldCol);
+
+            if (value != null) {
+                preferredDay=Integer.parseInt(value.toString());
+            }
+        }
+
         for (int row = 0; row < 6; row++) { // Mengosongkan seluruh kalender setiap ganti bulan/tahun
             for (int col = 0; col < 7; col++) {
                 model.setValueAt(null, row, col);
@@ -229,6 +242,18 @@ public class CalendarFrame extends javax.swing.JFrame {
             // Masukkin angka ke JTable sesuai baris dan kolom sebelumnya
             model.setValueAt(day, row, col);
         }
+
+        // Menentukan tanggal yang akan dipilih pada bulan baru
+        int day = Math.min(preferredDay, daysInMonth);
+
+        // Menghitung posisi tanggal pada kalender
+        int position=startColumn + day - 1;
+        int rowSelected=position/7;
+        int colSelected=position%7;
+
+        // Memilih tanggal secara otomatis
+        tableCalendar.changeSelection(rowSelected, colSelected, false, false);
+
         refreshSeasonLabel();
     }
 
